@@ -10,6 +10,7 @@
 		0666C54620E786B20028C537 /* SimpleTaskQueue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0666C53C20E786B10028C537 /* SimpleTaskQueue.framework */; };
 		0666C54B20E786B20028C537 /* SimpleTaskQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0666C54A20E786B20028C537 /* SimpleTaskQueueTests.swift */; };
 		0666C54D20E786B20028C537 /* SimpleTaskQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 0666C53F20E786B10028C537 /* SimpleTaskQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0666C55720E786E10028C537 /* TaskQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0666C55620E786E10028C537 /* TaskQueue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		0666C54520E786B20028C537 /* SimpleTaskQueueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleTaskQueueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0666C54A20E786B20028C537 /* SimpleTaskQueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTaskQueueTests.swift; sourceTree = "<group>"; };
 		0666C54C20E786B20028C537 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0666C55620E786E10028C537 /* TaskQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskQueue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				0666C53F20E786B10028C537 /* SimpleTaskQueue.h */,
 				0666C54020E786B10028C537 /* Info.plist */,
+				0666C55620E786E10028C537 /* TaskQueue.swift */,
 			);
 			path = SimpleTaskQueue;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 				TargetAttributes = {
 					0666C53B20E786B10028C537 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0930;
 					};
 					0666C54420E786B20028C537 = {
 						CreatedOnToolsVersion = 9.3;
@@ -194,6 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0666C55720E786E10028C537 /* TaskQueue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +344,7 @@
 		0666C55120E786B20028C537 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -347,6 +353,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = SimpleTaskQueue/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -355,6 +362,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.SimpleTaskQueue;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -363,6 +371,7 @@
 		0666C55220E786B20028C537 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -371,6 +380,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = SimpleTaskQueue/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -387,6 +397,7 @@
 		0666C55420E786B20028C537 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SimpleTaskQueueTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -404,6 +415,7 @@
 		0666C55520E786B20028C537 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SimpleTaskQueueTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
