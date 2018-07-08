@@ -9,7 +9,7 @@
 
 import Foundation
 
-class TaskQueue: LockDelegate {
+public class TaskQueue: LockDelegate {
     
     private static var queues = [String: TaskQueue]()
     fileprivate var isExecutingTasks: Bool = false
@@ -18,7 +18,7 @@ class TaskQueue: LockDelegate {
     
     public let recorder = Recorder()
     
-    static func getQueue(identifier: String) -> TaskQueue {
+    public static func getQueue(identifier: String) -> TaskQueue {
         if let queue = queues[identifier] {
             return queue
         } else {
@@ -32,7 +32,7 @@ class TaskQueue: LockDelegate {
         queueLock.delegate = self
     }
     
-    func push(task: Task){
+    public func push(task: Task){
         let newTaskNode = TaskNode(currentTask: task, nextNode: nil)
         
         if let tail = headNode?.getTail() {
@@ -72,11 +72,11 @@ class TaskQueue: LockDelegate {
     }
 }
 
-class QueueLock {
+public class QueueLock {
     
     fileprivate weak var delegate: LockDelegate?
     
-    func release() {
+    public func release() {
         delegate?.onRelease()
     }
 }
@@ -102,12 +102,12 @@ private class TaskNode {
     }
 }
 
-protocol Task {
+public protocol Task {
     var tag: String { get }
     func execute(queueLock: QueueLock)
 }
 
-class Recorder {
+public class Recorder {
     
     private let dateFormatter = DateFormatter()
     
@@ -115,7 +115,7 @@ class Recorder {
         dateFormatter.dateFormat = "HH:mm:ss"
     }
     
-    func reply() {
+    public func reply() {
         actions.forEach {
             switch $0 {
             case .queued(let task, let time):
