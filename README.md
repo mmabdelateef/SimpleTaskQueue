@@ -2,7 +2,10 @@
 
 Execute tasks sequentially even across different threads. gurantee only one task is running at a time. 
 
+![](img0.png)
+
 >TaskQueues do not care about threads, the sole purpose of a queue is to make sure that it’s tasks run sequentially and ensures that only one task is running at a time.
+
 
 ## Example
 This example simulates input backpressure by starting 20 tasks almost in the same time, our goal is to make sure this tasks doesn't interscet with each other.
