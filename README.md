@@ -4,11 +4,11 @@ A handy way to execute tasks sequentially even across different threads. gurante
 
 ![](img0.png)
 
->TaskQueues do not care about threads, the sole purpose of a queue is to make sure that it’s tasks run sequentially and ensures that only one task is running at a time.
+>TaskQueues do not care about threads, the sole purpose of a queue is to make sure that its tasks run sequentially and ensures that only one task is running at a time.
 
 
 ## Example
-This example simulates input backpressure by starting 20 tasks almost in the same time, our goal is to make sure this tasks doesn't interscet with each other.
+This example simulates input backpressure by starting 20 tasks almost at the same time, our goal is to make sure this tasks doesn't interscet with each other.
 ```swift
 // Simulating 20 rapid events that trigger random length tasks
 let queue = TaskQueue.getQueue(identifier: "Test")   // 1
@@ -101,7 +101,7 @@ Hi, MainThread is not blocked by tasks!!
 **Code Explanation:**
 
 1. Get instance of the desired queue, queues are **singletons** identified by identifier string and can be careted using `TaskQueue.getQueue(identifier:)`. This method will check if there is a queue with this identifier alreqady exisits otheriwse it will create a new queue with this identifier.
-2. **Push** tasks using `queue.push(task:` to queue to execute them as soon as possible when all previous tasks in the queue are done.
+2. **Push** tasks using `queue.push(task:)` to queue to execute them as soon as possible when all previous tasks in the queue are done.
 3. When `queue.recorder.reply()` is called, it will print all events happened on the queue
 4. Create a class/struct **conforming to `Task` protocol** to encapsulate the task's logic in it
 5. **override execute** function and write the task logic
@@ -109,7 +109,9 @@ Hi, MainThread is not blocked by tasks!!
 
 ## Useage
 
-SimpleTaskQueue is useful to **avoid race conditions in situations where data sources are changing more rapidly than the consumer elements can consume**. One obvious example is when using a UICollectionView that displays data from an array of elements. If the array that is used by the datasource is changing rapidly, you might want to update the UI to reflect the new data but you don’t want the data to be modified again before you finish displaying it in the collection view to avoid any data inconsistency caused by race conditions. One solution is use locks but locks are dangerous if not used carefully because they may lead to a deadlock, another approach is to dispatch tasks synchronously into the main thread using DispatchQueue.main.sync but this is not a good idea because if you call this from the main thread it will block the main thread and most probably will led to a deadlock (The synchronous dispatch waits for the block to finish, but the block does not even start running, since we are waiting for the current one - the block that executes DispatchQueue.main.sync - to finish.).   
+SimpleTaskQueue is useful to **avoid race conditions in situations where data sources are changing more rapidly than the consumer elements can consume**.  
+One obvious example is when using a UICollectionView that displays data from an array of elements. If the array that is used by the datasource is changing rapidly, you might want to update the UI to reflect the new data but you don’t want the data to be modified again before you finish displaying it in the collection view to avoid any data inconsistency caused by race conditions.  
+One solution is use locks but locks are dangerous if not used carefully because they may lead to a deadlock, another approach is to dispatch tasks synchronously into the main thread using DispatchQueue.main.sync but this is not a good idea because if you call this from the main thread it will block the main thread and most probably will led to a deadlock (The synchronous dispatch waits for the block to finish, but the block does not even start running, since we are waiting for the current one - the block that executes DispatchQueue.main.sync - to finish.).   
 Using SimpleTaskQueue you can easily do this **by queuing different UI changes without blocking the main thread, we are just delaying the execution of one task till the other related tasks that use the same shared resources are finished**
 
 ### Installation
