@@ -1,6 +1,6 @@
 # SimpleTaskQueue
 
-A handy way to execute tasks sequentially even across different threads. gurantee only one task is running at a time. 
+A handy way to execute tasks sequentially even across different threads. guarantee only one task is running at a time. 
 
 ![](img0.png)
 
