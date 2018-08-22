@@ -97,12 +97,12 @@ Hi, MainThread is not blocked by tasks!!
 ```
 **Code Explanation:**
 
-1 - Get instance of the desired queue, queues are **singletons** identified by identifier string and can be careted using `TaskQueue.getQueue(identifier:)`. This method will check if there is a queue with this identifier alreqady exisits otheriwse it will create a new queue with this identifier.
-2 - **Push** tasks using `queue.push(task:` to queue to execute them as soon as possible when all previous tasks in the queue are done.
-3 - When `queue.recorder.reply()` is called, it will print all events happened on the queue
-4 - Create a class/struct **conforming to Task protocol** to encapsulate the task's logic in it
-5 - **override execute** function and write the task logic
-6 - When the task is finished just call **queueLock.release()**, after that queue will automatically check if there are any pending tasks and start executing them.
+1. Get instance of the desired queue, queues are **singletons** identified by identifier string and can be careted using `TaskQueue.getQueue(identifier:)`. This method will check if there is a queue with this identifier alreqady exisits otheriwse it will create a new queue with this identifier.
+2. **Push** tasks using `queue.push(task:` to queue to execute them as soon as possible when all previous tasks in the queue are done.
+3. When `queue.recorder.reply()` is called, it will print all events happened on the queue
+4. Create a class/struct **conforming to Task protocol** to encapsulate the task's logic in it
+5. **override execute** function and write the task logic
+6. When the task is finished just call **queueLock.release()**, after that queue will automatically check if there are any pending tasks and start executing them.
 
 ## Useage
 
@@ -113,8 +113,8 @@ Using SimpleTaskQueue you can easily do this by queuing different UI changes wit
 
 SimpleTaskQueue can be installed using CocoaPods
 ```sh
-    use_frameworks!
-    pod 'SimpleTaskQueue'
+use_frameworks!
+pod 'SimpleTaskQueue'
 ```
 
 ### Todos
