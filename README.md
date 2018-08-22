@@ -9,7 +9,7 @@ A handy way to execute tasks sequentially even across different threads. gurante
 
 ## Example
 This example simulates input backpressure by starting 20 tasks almost in the same time, our goal is to make sure this tasks doesn't interscet with each other.
-```sh
+```swift
 // Simulating 20 rapid events that trigger random length tasks
 let queue = TaskQueue.getQueue(identifier: "Test")   // 1
 _ = (1...20).map {
@@ -24,7 +24,7 @@ DispatchQueue.main.asyncAfter(deadline: .now() + 100) {
 print("Hi, MainThread is not blocked by tasks!!")
 ```
 
-```sh
+```swift
 struct TestTask: Task {   // 4
     var tag: String
     func execute(queueLock: QueueLock) {    // 5
