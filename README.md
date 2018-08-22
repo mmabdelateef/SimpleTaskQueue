@@ -107,7 +107,7 @@ Hi, MainThread is not blocked by tasks!!
 5. **override execute** function and write the task logic
 6. When the task is finished just **release the queue lock** by calling `queueLock.release()`, after that queue will automatically check if there are any pending tasks and start executing them.
 
-## Useage
+## Usage
 
 SimpleTaskQueue is useful to **avoid race conditions in situations where data sources are changing more rapidly than the consumer elements can consume**.  
 One obvious example is when using a UICollectionView that displays data from an array of elements. If the array that is used by the datasource is changing rapidly, you might want to update the UI to reflect the new data but you don’t want the data to be modified again before you finish displaying it in the collection view to avoid any data inconsistency caused by race conditions.  
