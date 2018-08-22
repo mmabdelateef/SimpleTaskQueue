@@ -11,7 +11,7 @@ A handy way to execute tasks sequentially even across different threads. guarant
 This example simulates input backpressure by starting 20 tasks almost at the same time, our goal is to make sure this tasks doesn't interscet with each other.
 ```swift
 // Simulating 20 rapid events that trigger random length tasks
-let queue = TaskQueue.getQueue(identifier: "Test")   // 1
+let queue = TaskQueue.getQueue(identifier: "TestQueue")   // 1
 _ = (1...20).map {
         queue.push(task: TestTask(tag: "RandomTask\($0)"))  // 2
 }
