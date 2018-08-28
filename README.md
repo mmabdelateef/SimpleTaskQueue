@@ -114,7 +114,17 @@ One obvious example is when using a UICollectionView that displays data from an 
 One solution is use locks but locks are dangerous if not used carefully because they may lead to a deadlock, another approach is to dispatch tasks synchronously into the main thread using `DispatchQueue.main.sync` but this is not a good idea because if you call this from the main thread it will block the main thread and most probably will led to a deadlock (The synchronous dispatch waits for the block to finish, but the block does not even start running, since we are waiting for the current one - the block that executes DispatchQueue.main.sync - to finish.).   
 Using SimpleTaskQueue you can easily do this **by queuing different UI changes without blocking the main thread, we are just delaying the execution of one task till the other related tasks that use the same shared resources are finished**
 
-### Installation
+
+## Notes
+ - Queues are **singleton** objects identified by a String ID, everytime you try to get a queue by the same identifier, you will get the same queue instance.
+ - Queue is agnostic to threads, managing threads is the user responsibility. Queue is only responsible of starting one task when the other is finished.
+ - Tasks design is inspired by the command pattern where code is encapsulated in a single entity and is executed via a callback method `execute`.
+ - You should never call `execute` directly, it is meant to be called by the queue when the task is ready to run
+ - Internally, tasks are stored in a linked list structure where every task is contained in a node that points to the the next node (containing the next task to be executed).
+ - When a task finishes it is work it must signal the queue that it’s done so the queue can move to the next node in the linked list and start executing it.
+ - Every Queue has a `recoreder` instance associated to it, You can use it to reply events happened in the queue at any time.  
+
+## Installation
 
 SimpleTaskQueue can be installed using CocoaPods
 ```sh
@@ -122,7 +132,7 @@ use_frameworks!
 pod 'SimpleTaskQueue'
 ```
 
-### Todos
+## Todos
 
  - Improve logging by adding interactive replays
  - Add callbacks to different queue states
