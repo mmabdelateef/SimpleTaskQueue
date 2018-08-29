@@ -118,10 +118,10 @@ Using SimpleTaskQueue you can easily do this **by queuing different UI changes w
 ## Notes
  - Queues are **singleton** objects identified by a String ID, everytime you try to get a queue by the same identifier, you will get the same queue instance.
  - Queue is agnostic to threads, managing threads is the user responsibility. Queue is only responsible of starting one task when the other is finished.
- - Tasks design is inspired by the command pattern where code is encapsulated in a single entity and is executed via a callback method `execute`.
- - You should never call `execute` directly, it is meant to be called by the queue when the task is ready to run
- - Internally, tasks are stored in a linked list structure where every task is contained in a node that points to the the next node (containing the next task to be executed).
- - When a task finishes it is work it must signal the queue that it’s done so the queue can move to the next node in the linked list and start executing it.
+ - Tasks design is inspired by the command pattern where task logic is encapsulated in a single entity and is executed via a callback method `execute`.
+ - You should never call `execute` directly, it is meant to be called by the queue when the task is ready to run.
+ - Internally, tasks are stored in a linked list structure where every task is contained in a node that also contains a reference to the the next node (containing the next task to be executed).
+ - When a task finishes it is work it must signal the queue that it’s done so the queue can move to the next node in the underlying linked list and start executing it.
  - Every Queue has a `recoreder` instance associated to it, You can use it to reply events happened in the queue at any time.  
 
 ## Installation
