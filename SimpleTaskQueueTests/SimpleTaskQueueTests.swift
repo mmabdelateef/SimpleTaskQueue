@@ -31,6 +31,7 @@ class SimpleTaskQueueTests: XCTestCase {
         
         let numberOfRandomLenghtTasks = 20
         let queue = TaskQueue.getQueue(identifier: "Test")
+//        queue.setInDebugMode(true)
         _ = (1...numberOfRandomLenghtTasks).map {
             queue.push(task: RandomTimeTask(index: $0, recoder: recoder))
         }
@@ -45,13 +46,6 @@ class SimpleTaskQueueTests: XCTestCase {
         
         assert(recoder.getOrderedIndexsOfFinishedTasks() == Array(1...numberOfRandomLenghtTasks))
         
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
     }
     
     func generateRandomTask(index: Int) -> Task {

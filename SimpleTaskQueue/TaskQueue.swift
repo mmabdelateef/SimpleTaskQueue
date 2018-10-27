@@ -32,6 +32,10 @@ public class TaskQueue: LockDelegate {
         queueLock.delegate = self
     }
     
+    public func setInDebugMode(_ isInDebugMode: Bool) {
+        isInDebugMode ? recorder.startRecording() : recorder.stopRecording()
+    }
+    
     public func push(task: Task){
         let newTaskNode = TaskNode(currentTask: task, nextNode: nil)
         
@@ -110,9 +114,19 @@ public protocol Task {
 public class Recorder {
     
     private let dateFormatter = DateFormatter()
+    private var shouldRecordActions: Bool = false
     
     init() {
         dateFormatter.dateFormat = "HH:mm:ss"
+    }
+    
+    fileprivate func startRecording() {
+        shouldRecordActions = true
+    }
+    
+    fileprivate func stopRecording() {
+        shouldRecordActions = false
+        actions.removeAll()
     }
     
     public func reply() {
@@ -135,41 +149,27 @@ public class Recorder {
         case started(task: Task, time: Date)
         case queued(task: Task, time: Date)
         case releasedLock(task: Task, time: Date)
-        
-//       private  var date: Date {
-//            switch self {
-//            case .started(_, let time),
-//                 .releasedLock(_ , let time),
-//                 .queued(_ ,let time):
-//                return time
-//            }
-//        }
-//
-//        private var task: Task {
-//            switch self {
-//            case .started(let task, _):
-//                return task
-//            case .releasedLock(let task , _):
-//                return task
-//            case .queued(let task , _):
-//                return task
-//            }
-//        }
     }
     
     fileprivate func onTaskQueued(task: Task) {
-        actions.append(.queued(task: task, time: Date()))
+        if shouldRecordActions {
+            actions.append(.queued(task: task, time: Date()))
+        }
     }
     
     fileprivate func onTaskStarted(task: Task) {
-        actions.append(.started(task: task, time: Date()))
+        if shouldRecordActions {
+            actions.append(.started(task: task, time: Date()))
+        }
     }
     
     fileprivate func onLockReleased(task: Task) {
-        actions.append(.releasedLock(task: task, time: Date()))
+        if shouldRecordActions {
+            actions.append(.releasedLock(task: task, time: Date()))
+        }
     }
     
     fileprivate func reset () {
-        actions = [Action]()
+        actions.removeAll()
     }
 }
