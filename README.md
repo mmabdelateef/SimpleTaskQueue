@@ -18,7 +18,7 @@ _ = (1...20).map {
         
 // Replay events happened to the queue after sometime
 DispatchQueue.main.asyncAfter(deadline: .now() + 100) {
-    queue.recorder.reply()   // 3
+    queue.recorder.replay()   // 3
 }
         
 print("Hi, MainThread is not blocked by tasks!!")
