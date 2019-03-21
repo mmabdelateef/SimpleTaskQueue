@@ -1,4 +1,4 @@
-# SimpleTaskQueue
+# SimpleTaskQueue (Experimental)
 
 A handy way to execute tasks sequentially even across different threads. guarantee only one task is running at a time. 
 
